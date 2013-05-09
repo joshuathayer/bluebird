@@ -90,13 +90,11 @@ $(document).ready(function() {
 	},
 
 	_playStory: function () {
-	    mySound.play();
 
 	    mySound.bind("ended", function(e) {
 		playState = false;
 		console.log("playing done. playState is " + playState);
-		buttonToHiddenState();
-	    });
+	    }).play();
 
 	    playState = true;
 	    buttonToHiddenState();
@@ -209,9 +207,9 @@ $(document).ready(function() {
 	fakeLocationFound(e.latlng);
     });
 
-    // map.on('click', function(e) {
-    //  	updatedLocation(e.latlng)
-    // });
+    map.on('click', function(e) {
+     	updatedLocation(e.latlng)
+    });
 
     map.on('locationerror', function() {
 	fakeLocationFound([40.7255, -73.9877])
@@ -219,7 +217,7 @@ $(document).ready(function() {
 
     map.locate({setView: true,
 		maximumAge: 500,
-		watch: false,
+		watch: true,
 		maxZoom: 18});
 
 })
