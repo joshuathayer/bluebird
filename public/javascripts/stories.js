@@ -124,14 +124,29 @@ $(document).ready(function() {
 	  story: "tsq"}
     ];
 
+    var myIcon = L.icon({
+     iconUrl: '/images/spot.png',
+//   iconRetinaUrl: 'my-icon@2x.png',
+     iconSize: [80, 90],
+     iconAnchor: [40, 40],
+     popupAnchor: [-3, -76],
+//   shadowUrl: 'my-icon-shadow.png',
+//   shadowRetinaUrl: 'my-icon-shadow@2x.png',
+//   shadowSize: [68, 95],
+//   shadowAnchor: [22, 94]
+    });
+
+
     function fakeLocationFound(latlng) {
 
 	if (!mapInited) {
 	    _.each(points, function(point) {
-		L.circle(point.latlng, radius).addTo(map);
+		// L.circle(point.latlng, radius).addTo(map);
+		L.marker(point.latlng, {icon: myIcon, zIndexOffset: -10}).addTo(map);
 	    });
 		
-	    userMarker = L.marker(latlng);
+	    userMarker = L.marker(latlng, {zIndexOffset: 100});
+
 	    userMarker.addTo(map);
 	    mapInited = true;
 	}
@@ -147,7 +162,7 @@ $(document).ready(function() {
 
        _.each(points, function(point) {
 	   if (userMarker.getLatLng().distanceTo([point.latlng[0], point.latlng[1]])
-	       < 20) {
+	       < 40) {
 	       inActiveArea = point
 	   }});
        
@@ -197,9 +212,7 @@ $(document).ready(function() {
 
 	}
 
-
 	buttonToVisibleState();
-
     }
 
     
